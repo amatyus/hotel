@@ -1,0 +1,41 @@
+.card-title {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 150%;
+
+  color: #192252;
+}
+
+.card-text {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 150%;
+  max-width: 100%;
+
+  color: #000000;
+}
+
+.card-text-price {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 150%;
+
+  color: #192252;
+}
+
+.card-text-category,
+.card-text-rating {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #0e1734;
+}

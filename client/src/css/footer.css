@@ -1,0 +1,14 @@
+.link-footer,
+.link-footer:visited,
+.link-footer:hover,
+.link-footer:link,
+.link-footer:link:active,
+.link-footer:visited:active {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #ffff;
+}

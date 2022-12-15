@@ -1,0 +1,30 @@
+.date-picker-input {
+  background-color: rgb(248, 249, 250);
+  width: 15rem;
+}
+
+.count-adult-input {
+  background-color: rgb(248, 249, 250);
+}
+
+.submit {
+  max-width: max-content;
+}
+
+.menu-counter li {
+  /* display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 10px 5px 10px;
+  gap: 10px; */
+
+  display: flex;
+  margin: 0 10px 5px 10px;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.option-counter-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
