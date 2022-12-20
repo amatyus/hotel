@@ -4,15 +4,8 @@ function getRandomInt(min, max) {
 
 function generateRoomData() {
   return {
-    title: 'title',
-    description: 'description',
-    price: getRandomInt(100, 1000),
     rating: getRandomInt(1, 5),
-    maxPeople: getRandomInt(1, 5),
-    completedMeetings: getRandomInt(0, 200),
-    image: `https://avatars.dicebear.com/api/avataaars/${(Math.random() + 1)
-      .toString(36)
-      .substring(7)}.svg`
+    image: ['cootege.jpg']
   }
 }
 

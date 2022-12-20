@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+
 import '../../css/footer.css'
 
 const Footer = () => {
@@ -11,11 +12,6 @@ const Footer = () => {
         </span>
 
         <ul className="nav justify-content-end">
-          {/* <li className="nav-item">
-            <Link className="nav-link link-footer" to="/">
-              Главная
-            </Link>
-          </li> */}
           <li className="nav-item">
             <Link className="nav-link link-footer" to="/rooms">
               Номера

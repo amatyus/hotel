@@ -16,6 +16,7 @@ const FileField = ({label, name, value, onChange, error}) => {
         className="form-control"
         type="file"
         id="formFileMultiple"
+        accept="image/png, image.jpg"
         multiple
         value={value}
         onChange={handleChange}

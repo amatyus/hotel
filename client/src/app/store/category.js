@@ -47,7 +47,7 @@ export const getCategoryLoadingStatus = () => (state) =>
   state.category.isLoading
 export const getCategoryById = (id) => (state) => {
   if (state.category.entities) {
-    return state.category.entities.find((с) => с.id === id)
+    return state.category.entities.find((с) => с._id === id)
   }
 }
 

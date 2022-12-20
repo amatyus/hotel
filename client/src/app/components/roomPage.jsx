@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import Loader from './common/form/loader'
 import {useHistory} from 'react-router-dom'
@@ -7,10 +7,12 @@ import Carousel from 'react-multi-carousel'
 import '../../css/roomPage.css'
 import 'react-multi-carousel/lib/styles.css'
 import BackButton from './common/backButton'
+import BookingRoom from '../components/ui/bookingRoom'
 import {useRooms} from '../hooks/useRooms'
 import {useSelector} from 'react-redux'
 import {getCategoryById, getCategoryLoadingStatus} from '../store/category'
 import {getCurrentUserData} from '../store/user'
+import bookingService from '../services/booking.service'
 
 const RoomPage = ({roomId}) => {
   const {getRoom} = useRooms()
@@ -19,6 +21,9 @@ const RoomPage = ({roomId}) => {
   const category = useSelector(getCategoryById(room.category))
   const categoryLoading = useSelector(getCategoryLoadingStatus())
   const currentUser = useSelector(getCurrentUserData())
+  const [disabledDates, setDisabledDates] = useState([])
+  console.log(roomId)
+  console.log(room)
 
   const responsive = {
     desktop: {
@@ -33,6 +38,40 @@ const RoomPage = ({roomId}) => {
   const handleEdit = () => {
     history.push(`/rooms/${roomId}/edit`)
   }
+
+  const onBooking = (formData) => {
+    const dataSend = {
+      ...formData,
+      roomId
+    }
+
+    bookingService.create(dataSend)
+  }
+
+  useEffect(() => {
+    bookingService
+      .disabledDates({
+        arrivalDate: new Date().getTime()
+      })
+      .then(({content}) => {
+        const daysArray = content.reduce((days, period) => {
+          const daysPeriod = []
+          const {arrivalDate, departureDate} = period
+          const start = new Date(arrivalDate)
+          const end = new Date(departureDate)
+
+          let date = start
+          while (date <= end) {
+            daysPeriod.push(date)
+            date = new Date(date.getTime() + 24 * 60 * 60 * 1000)
+          }
+
+          return [...days, ...daysPeriod]
+        }, [])
+
+        setDisabledDates(daysArray)
+      })
+  }, [])
 
   if (room && !categoryLoading && room.image) {
     return (
@@ -64,7 +103,13 @@ const RoomPage = ({roomId}) => {
               <p className="card-text-price">Price: {room.price}$</p>
               <p className="card-text-category">Category: {category.name} </p>
               <p className="card-text-rating">Rating: {room.rating}</p>
-              <Button type="button" text="Забронировать" />
+
+              <BookingRoom
+                maxPeople={room.maxPeople}
+                onSubmit={onBooking}
+                disabledDates={disabledDates}
+              />
+
               {currentUser && currentUser.isAdmin && (
                 <Button
                   type="button"

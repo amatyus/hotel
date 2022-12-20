@@ -12,7 +12,10 @@ function AdminProtectedRoute({component: Component, children, ...rest}) {
     <Route
       {...rest}
       render={(props) => {
-        if (!isLoggedIn && !currentUser?.isAdmin) {
+        if (
+          (!currentUser && !isLoggedIn) ||
+          (!isLoggedIn && !currentUser.isAdmin)
+        ) {
           return (
             <Redirect
               to={{

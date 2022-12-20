@@ -13,14 +13,14 @@ const Pagination = (props) => {
   return (
     <>
       <nav aria-label="Page navigation example">
-        <ul className="pagination justify-content-center">
+        <ul className="pagination pagination-sm  justify-content-center">
           {pages.map((page) => (
             <li
               key={page}
-              className={'page-item' + (currentPage === page ? ' active' : '')}
-              aria-current="page"
+              className={'page-item ' + (currentPage === page ? ' active' : '')}
+              aria-current="page_"
             >
-              <span className="page-link" onClick={() => onPageChange(page)}>
+              <span className="page-link " onClick={() => onPageChange(page)}>
                 {page}
               </span>
             </li>

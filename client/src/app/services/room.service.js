@@ -6,12 +6,13 @@ const roomService = {
     const {data} = await httpService.patch(roomEndPoint + id, content)
     return data
   },
+
   get: async (id) => {
     const {data} = await httpService.get(roomEndPoint + id)
     return data
   },
-  fetchAll: async () => {
-    const {data} = await httpService.get(roomEndPoint)
+  fetchAll: async (params) => {
+    const {data} = await httpService.get(roomEndPoint, {params})
     return data
   },
   create: async (payload) => {

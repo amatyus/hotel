@@ -1,8 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import roomService from '../services/room.service'
-import Loader from '../components/common/form/loader'
-import {nanoid} from 'nanoid'
 
 const RoomsContext = React.createContext()
 
@@ -12,28 +10,35 @@ export const useRooms = () => {
 
 export const RoomsProvider = ({children}) => {
   const [rooms, setRooms] = useState([])
+  const [count, setCount] = useState(0)
   const [error, setError] = useState(null)
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(false)
 
-  useEffect(() => {
-    const getRooms = async () => {
-      try {
-        const {content} = await roomService.fetchAll()
-        setRooms(content)
-        setLoading(false)
-      } catch (error) {
-        errorCatcher(error)
-      }
+  const getRooms = async (queryParams) => {
+    try {
+      setLoading(true)
+      const {content} = await roomService.fetchAll(queryParams)
+      const {rooms, count} = content[0]
+      setRooms(rooms)
+      setCount(count)
+    } catch (error) {
+      errorCatcher(error)
+    } finally {
+      setLoading(false)
     }
-    getRooms()
-  }, [])
+  }
+
   function errorCatcher(error) {
     const {message} = error.response.data
     setError(message)
     setLoading(false)
   }
-  const getRoom = (id) => {
-    return rooms.find((r) => r._id === id)
+
+  const getRoom = (roomId) => {
+    if (!isLoading) {
+      return rooms.find((r) => r._id === roomId)
+    }
+    // return <Loader />
   }
 
   const updateRoomData = async (id, data) => {
@@ -41,7 +46,7 @@ export const RoomsProvider = ({children}) => {
       const {content} = await roomService.update(id, data)
       setRooms((prevState) =>
         prevState.map((item) => {
-          if (item._id === content.id) {
+          if (item._id === content._id) {
             return content
           }
           return item
@@ -53,25 +58,7 @@ export const RoomsProvider = ({children}) => {
     }
   }
 
-  //   async function createRoom(data) {
-  //     const room = {
-  //       ...data,
-  //       _id: nanoid(),
-  //       image: ['house.jpg']
-  //       //   pageId: userId,
-  //       //   created_at: Date.now()
-  //       //   userId: currentUser._id
-  //     }
-  //     try {
-  //       const {content} = await roomService.create(room)
-  //       setRooms((prevState) => [...prevState, content])
-  //     } catch (error) {
-  //       errorCatcher(error)
-  //     }
-  //   }
-
   async function createRoom(data) {
-    console.log(data)
     try {
       const {content} = await roomService.create(data)
       console.log(content)
@@ -103,13 +90,15 @@ export const RoomsProvider = ({children}) => {
       value={{
         rooms,
         getRoom,
+        getRooms,
         updateRoomData,
         removeRoom,
         createRoom,
-        isLoading
+        isLoading,
+        count
       }}
     >
-      {!isLoading ? children : <Loader />}
+      {children}
     </RoomsContext.Provider>
   )
 }

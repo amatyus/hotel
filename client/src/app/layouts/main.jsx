@@ -2,7 +2,7 @@ import React from 'react'
 import '../../css/base.css'
 import 'react-date-range/dist/styles.css' // main css file
 import 'react-date-range/dist/theme/default.css' // theme css file
-import DataForm from '../components/ui/dataForm'
+import FilterRooms from '../components/ui/filterRooms'
 import HomeCard from '../components/ui/homeCard'
 import TitleInfo from '../components/titleInfo'
 import Footer from '../components/footer'
@@ -19,7 +19,7 @@ const Main = () => {
                 'Одно место, чтобы снять весь стресс, вернуть счастье и вернуться к природе. Мы предоставляем лучший номер и природу для вас. Приходите к нам в любое время, когда вы хотите.'
               }
             />
-            <DataForm />
+            <FilterRooms />
           </div>
         </div>
         <div className="col-5">

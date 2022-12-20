@@ -33,14 +33,14 @@ const EditRoomsPage = ({roomId}) => {
 
   const categoryList = category.map((с) => ({
     label: с.name,
-    value: с.id
+    value: с._id
   }))
 
   const handeleSubmit = async (e) => {
     e.preventDefault()
     const isValid = validate()
     if (!isValid) return
-    await updateRoomData(data.id, {
+    await updateRoomData(data._id, {
       ...data
     })
     history.goBack()

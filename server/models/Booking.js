@@ -1,15 +1,13 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model, SchemaTypes} = require('mongoose')
 
-const schema = new Schema(
-  {
-    userId: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-    roomId: {type: Schema.Types.ObjectId, ref: 'Rooms', required: true},
-    startData: {type: Date, default: Date.now},
-    endData: {type: Date, default: Date.now}
-  },
-  {
-    timestamps: true
-  }
-)
+const schema = new Schema({
+  adults: Number,
+  children: Number,
+  arrivalDate: Date,
+  departureDate: Date,
+  roomId: {type: SchemaTypes.ObjectId, ref: 'Room'},
+  userId: {type: SchemaTypes.ObjectId, ref: 'User'},
+  totalPrice: Number
+})
 
 module.exports = model('Booking', schema)

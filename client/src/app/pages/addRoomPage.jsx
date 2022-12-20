@@ -4,13 +4,15 @@ import TextField from '../components/common/form/textField'
 import TextAreaField from '../components/common/form/textAreaField'
 import SelectField from '../components/common/form/selectField'
 import Button from '../components/common/button'
-import '../../css/editRoomsPage.css'
+import Loader from '../components/common/form/loader'
 import BackButton from '../components/common/backButton'
-import {validator} from '../utils/validateRules'
 import FileField from '../components/common/form/fileField'
+import {validator} from '../utils/validateRules'
 import {useHistory} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {getCategory} from '../store/category'
+
+import '../../css/editRoomsPage.css'
 
 const AddRoomsPage = ({onSubmit}) => {
   const [data, setData] = useState({})
@@ -18,11 +20,10 @@ const AddRoomsPage = ({onSubmit}) => {
   const [errors, setErrors] = useState({})
   const history = useHistory()
 
-  const categoryList = category.map((с) => ({
+  const categoryList = category?.map((с) => ({
     label: с.name,
     value: с._id
   }))
-
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
@@ -121,13 +122,13 @@ const AddRoomsPage = ({onSubmit}) => {
               error={errors.maxPeople}
               placeholder="Max People"
             />
-            {/* <FileField
+            <FileField
               label="Image"
               name="image"
               onChange={handleChange}
               error={errors.image}
               value={data.image}
-            /> */}
+            />
             <SelectField
               label="Category"
               name="category"

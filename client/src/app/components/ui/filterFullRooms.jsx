@@ -4,70 +4,42 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../../../css/dataForm.css'
 import Dropdown from './dropdown'
 import Button from '../common/button'
-import {useHistory} from 'react-router-dom'
+import GroupField from '../common/form/groupField'
+import RateField from '../common/form/rateField'
+import PropTypes from 'prop-types'
 
-const DataForm = () => {
-  const history = useHistory()
-
+const FilterFullRooms = ({initFormData, onSubmit}) => {
   const [formData, setFormData] = useState({
-    start: Date.now(),
-    end: Date.now(),
-    adult: 2,
-    children: 0
+    ...initFormData
   })
-
-  const transformDate = (data) => {
-    if (start && end) {
-      return Date.parse(data)
-    }
-  }
-
-  const {start, end, adult, children} = formData
-
+  const {start, end, adult, children, category, rate} = formData
   const handleDateChange = (dates) => {
     const [start, end] = dates
-    setFormData((prev) => ({...prev, start, end}))
+    setFormData((prev) => ({
+      ...prev,
+      start,
+      end
+    }))
+  }
+
+  const handleFormFieldChange = (value, name) => {
+    setFormData((prevState) => ({...prevState, [name]: value}))
   }
 
   const handleIncrement = ({target}) => {
     const {value, name} = target
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: +value + 1
-    }))
+    handleFormFieldChange(+value + 1, name)
   }
 
   const handleDecrement = ({target}) => {
     const {value, name} = target
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: +value - 1
-    }))
+    handleFormFieldChange(+value - 1, name)
   }
 
-  const filterByDate = (arr, {start, end}) => {
-    start = start ? new Date(start) : null
-    end = end ? new Date(end) : null
-
-    return arr.filter(({date}) => {
-      date = new Date(date)
-      return !((start && start > date) || (end && end < date))
-    })
-  }
-
-  // обработка события отправки формы
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    const startData = transformDate(start)
-    const endData = transformDate(end)
-    const people = adult + children
-    // for (let i = startData; i <= endData; i = i + 24 * 60 * 60 * 1000) {
-    //   console.log(new Date(i).toISOString().substring(0, 10))
-    // }
-    console.log(startData, endData, people)
-
-    history.push(`/rooms?start=${startData}&end=${endData}&count=${people}`)
+    onSubmit(formData)
   }
 
   return (
@@ -76,6 +48,18 @@ const DataForm = () => {
         className="row g-3 bg-light mt-1 px-4 py-2 rounded d-flex align-items-center"
         onSubmit={handleSubmit}
       >
+        <div className="col m-0 p-0">
+          <GroupField
+            value={category}
+            onChange={(value) => handleFormFieldChange(value, 'category')}
+          />
+        </div>
+        <div className="col m-0 p-0">
+          <RateField
+            value={rate}
+            onChange={(value) => handleFormFieldChange(value, 'rate')}
+          />
+        </div>
         <div className="col m-0 p-0">
           <DatePicker
             selectsRange
@@ -106,4 +90,9 @@ const DataForm = () => {
   )
 }
 
-export default DataForm
+FilterFullRooms.propTypes = {
+  initFormData: PropTypes.object,
+  onSubmit: PropTypes.func
+}
+
+export default FilterFullRooms

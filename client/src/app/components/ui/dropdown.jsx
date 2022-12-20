@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import '../../../css/dataForm.css'
 import DropdownField from '../common/form/dropdownField'
 
-const Dropdown = ({adult, childrens, handleInc, handleDec}) => {
+const Dropdown = ({adult, childrens, handleInc, handleDec, max}) => {
   const [isOpen, setOpen] = useState(false)
 
   const dropwodnRef = useRef()
@@ -23,6 +23,8 @@ const Dropdown = ({adult, childrens, handleInc, handleDec}) => {
   const toggleMenu = () => {
     setOpen((prevState) => !prevState)
   }
+
+  const disabledIncrement = max && max <= adult + childrens
 
   return (
     <>
@@ -49,6 +51,7 @@ const Dropdown = ({adult, childrens, handleInc, handleDec}) => {
             />
 
             <span className="optionCounterNumber">{adult}</span>
+
             <DropdownField
               onChange={handleInc}
               className="optionCounterButton"
@@ -56,6 +59,7 @@ const Dropdown = ({adult, childrens, handleInc, handleDec}) => {
               name="adult"
               type="button"
               text="+"
+              disabled={disabledIncrement}
             />
           </li>
           <li>
@@ -71,6 +75,7 @@ const Dropdown = ({adult, childrens, handleInc, handleDec}) => {
             />
 
             <span className="optionCounterNumber">{childrens}</span>
+
             <DropdownField
               onChange={handleInc}
               className="optionCounterButton"
@@ -78,6 +83,7 @@ const Dropdown = ({adult, childrens, handleInc, handleDec}) => {
               name="children"
               type="button"
               text="+"
+              disabled={disabledIncrement}
             />
           </li>
         </ul>
@@ -90,7 +96,8 @@ Dropdown.propTypes = {
   adult: PropTypes.number.isRequired,
   childrens: PropTypes.number.isRequired,
   handleInc: PropTypes.func,
-  handleDec: PropTypes.func
+  handleDec: PropTypes.func,
+  max: PropTypes.number
 }
 
 export default Dropdown
