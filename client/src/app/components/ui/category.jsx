@@ -2,11 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Loader from '../common/form/loader'
 import {useSelector} from 'react-redux'
-import {
-  getCategory,
-  getCategoryLoadingStatus,
-  getCategoryById
-} from '../../store/category'
+import {getCategoryLoadingStatus, getCategoryById} from '../../store/category'
 
 const Category = ({id}) => {
   const isLoading = useSelector(getCategoryLoadingStatus())

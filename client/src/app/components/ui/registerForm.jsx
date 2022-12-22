@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import {validator} from '../../utils/validateRules'
 import TextField from '../common/form/textField'
 import Button from '../common/button'
+import {validator} from '../../utils/validateRules'
 import {useDispatch} from 'react-redux'
 import {signUp} from '../../store/user'
 
@@ -75,7 +75,7 @@ const RegisterForm = () => {
         value={data.name}
         onChange={handleChange}
         error={errors.name}
-        placeholder="Name"
+        placeholder="Ваше имя"
       />
       <TextField
         name="email"

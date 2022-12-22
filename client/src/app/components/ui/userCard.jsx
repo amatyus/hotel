@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
-import '../../../css/userCard.css'
 import {useSelector} from 'react-redux'
 import {getCurrentUserData, getCurrentUserId} from '../../store/user'
+
+import '../../../css/userCard.css'
 
 const UserCard = ({user}) => {
   const currentUser = useSelector(getCurrentUserData())

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import '../../../css/homeCard.css'
 
 const HomeCard = ({title, subtitle, text}) => {

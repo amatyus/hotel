@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import TextField from '../common/form/textField'
-import {validator} from '../../utils/validateRules'
 import Button from '../common/button'
+import {validator} from '../../utils/validateRules'
 import {useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {login, getAuthErrors} from '../../store/user'

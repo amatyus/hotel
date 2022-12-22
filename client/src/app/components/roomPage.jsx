@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import Loader from './common/form/loader'
-import {useHistory, useParams} from 'react-router-dom'
 import Button from './common/button'
 import Carousel from 'react-multi-carousel'
-import '../../css/roomPage.css'
-import 'react-multi-carousel/lib/styles.css'
+import bookingService from '../services/booking.service'
 import BackButton from './common/backButton'
 import BookingRoom from '../components/ui/bookingRoom'
+import {useHistory} from 'react-router-dom'
 import {useRooms} from '../hooks/useRooms'
 import {useSelector} from 'react-redux'
 import {getCategoryById, getCategoryLoadingStatus} from '../store/category'
 import {getCurrentUserData} from '../store/user'
-import bookingService from '../services/booking.service'
+
+import '../../css/roomPage.css'
+import 'react-multi-carousel/lib/styles.css'
 
 const getDaysByPeriods = (periods) => {
   return periods.reduce((days, period) => {
@@ -97,7 +98,7 @@ const RoomPage = ({roomId}) => {
                     <img
                       key={room.id}
                       src={require(`../../img/${img}`)}
-                      alt="..."
+                      alt={img}
                       className="w-50"
                     />
                   </div>

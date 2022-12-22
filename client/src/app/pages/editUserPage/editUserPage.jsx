@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import {useHistory} from 'react-router-dom'
 import TextField from '../../components/common/form/textField'
-import BackButton from '../../components/common/backButton'
-import {validator} from '../../utils/validateRules'
 import Loader from '../../components/common/form/loader'
 import Button from '../../components/common/button'
+import BackButton from '../../components/common/backButton'
 import {useDispatch, useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
+import {validator} from '../../utils/validateRules'
 import {updateUser, getCurrentUserData} from '../../store/user'
 
 const EditUserPage = () => {

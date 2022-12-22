@@ -71,13 +71,6 @@ const UserPage = ({userId}) => {
             </div>
           </div>
         </div>
-        {/* <div>
-          <img
-            src={require(`../../../img/userPage.jpg`)}
-            alt="..."
-            className="w-50"
-          />
-        </div> */}
       </>
     )
   } else {

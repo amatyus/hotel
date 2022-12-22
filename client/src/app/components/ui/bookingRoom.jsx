@@ -1,13 +1,14 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState} from 'react'
 import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import '../../../css/dataForm.css'
 import Dropdown from './dropdown'
 import Button from '../common/button'
 import PropTypes from 'prop-types'
 import {useHistory} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {getCurrentUserData} from '../../store/user'
+
+import 'react-datepicker/dist/react-datepicker.css'
+import '../../../css/dataForm.css'
 
 const oneDay = 86000000
 

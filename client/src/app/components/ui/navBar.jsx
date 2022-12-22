@@ -1,9 +1,10 @@
 import React from 'react'
-import {Link, NavLink} from 'react-router-dom'
-import '../../../css/navBar.css'
 import NavProfile from './navProfile'
+import {Link, NavLink} from 'react-router-dom'
 import {getIsLoggedIn, getCurrentUserData} from '../../store/user'
 import {useSelector} from 'react-redux'
+
+import '../../../css/navBar.css'
 
 const NavBar = () => {
   const isLoggedIn = useSelector(getIsLoggedIn())

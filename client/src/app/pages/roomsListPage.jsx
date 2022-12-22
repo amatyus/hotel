@@ -1,17 +1,12 @@
-import React, {useState, useEffect, useMemo} from 'react'
-import {useLocation} from 'react-router-dom'
-import {paginate} from '../utils/paginate'
+import React, {useState, useEffect} from 'react'
 import Pagination from '../components/pagination'
 import RoomsPage from './roomsPage'
 import Loader from '../components/common/form/loader'
-import {useRooms} from '../hooks/useRooms'
-import GroupList from '../components/ui/groupList'
-import Button from '../components/common/button'
-import _ from 'lodash'
 import FilterFullRooms from '../components/ui/filterFullRooms'
-import {useSelector} from 'react-redux'
-import {getCategory} from '../store/category'
 import queryString from 'query-string'
+import {useRooms} from '../hooks/useRooms'
+import {useLocation} from 'react-router-dom'
+import _ from 'lodash'
 
 const oneDay = 86000000
 

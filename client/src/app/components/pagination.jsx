@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
+import '../../css/pagination.css'
+
 const Pagination = (props) => {
   const {itemsCount, pageSize, currentPage, onPageChange} = props
   const pageCount = Math.ceil(itemsCount / pageSize)
@@ -12,7 +14,7 @@ const Pagination = (props) => {
 
   return (
     <>
-      <nav aria-label="Page navigation example">
+      <nav aria-label=" navigation example" className="pager">
         <ul className="pagination pagination-sm  justify-content-center">
           {pages.map((page) => (
             <li
@@ -20,9 +22,10 @@ const Pagination = (props) => {
               className={'page-item ' + (currentPage === page ? ' active' : '')}
               aria-current="page_"
             >
-              <span className="page-link " onClick={() => onPageChange(page)}>
-                {page}
-              </span>
+              <a className="page-link " onClick={() => onPageChange(page)}>
+                {/* {page} */}
+                <span className="sr-only"> {page}</span>
+              </a>
             </li>
           ))}
         </ul>

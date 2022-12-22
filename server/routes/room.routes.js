@@ -28,7 +28,6 @@ router.patch('/:roomId', auth, async (req, res) => {
 
 router.get('/', async (req, res) => {
   const {limit, page, adults, children, rate, start, end, category} = req.query
-  console.log(category)
   try {
     const rooms = await Rooms.aggregate([
       {

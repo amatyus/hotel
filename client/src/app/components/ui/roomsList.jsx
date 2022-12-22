@@ -4,7 +4,6 @@ import {useRooms} from '../../hooks/useRooms'
 
 const RoomsList = ({rooms}) => {
   const {isLoading} = useRooms()
-  console.log(rooms.split())
   if (!isLoading) return 'Loadind ...'
 
   return (

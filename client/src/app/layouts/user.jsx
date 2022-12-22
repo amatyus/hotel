@@ -1,11 +1,11 @@
 import React from 'react'
 import UserPage from '../pages/userPage/userPage'
-import {useParams} from 'react-router-dom'
 import EditUserPage from '../pages/editUserPage/editUserPage'
 import RoomsListPage from '../pages/roomsListPage'
+import UsersLoader from '../components/ui/hoc/usersLoader'
+import {useParams} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {getCurrentUserId} from '../store/user'
-import UsersLoader from '../components/ui/hoc/usersLoader'
 
 const Users = () => {
   const currentUserId = useSelector(getCurrentUserId())

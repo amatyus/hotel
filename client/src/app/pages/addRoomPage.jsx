@@ -53,8 +53,6 @@ const AddRoomsPage = ({onSubmit}) => {
       isRequired: {
         message: 'Цена обязательно должен быть заполнен'
       }
-      //   message: 'Минимальная цена не должна быть меньше одного символа',
-      //   value: 1
     },
     category: {
       isRequired: {
@@ -65,8 +63,6 @@ const AddRoomsPage = ({onSubmit}) => {
       isRequired: {
         message: 'Количество людей обязательно для заполнения'
       }
-      //   message: 'Минимальное количество людей не должно быть меньше 1',
-      //   value: 1
     }
   }
 
@@ -76,7 +72,6 @@ const AddRoomsPage = ({onSubmit}) => {
 
   const validate = () => {
     const errors = validator(data, validatorConfig)
-    console.log(errors)
     setErrors(errors)
     return Object.keys(errors).length === 0
   }
@@ -91,11 +86,10 @@ const AddRoomsPage = ({onSubmit}) => {
     e.preventDefault()
     const isValid = validate()
     setIsSubmit(true)
-    // if (!isValid) return
-    // onSubmit(data)
-    // console.log(data)
-    // clearForm()
-    // history.push(`/rooms`)
+    if (!isValid) return
+    onSubmit(data)
+    clearForm()
+    history.push(`/rooms`)
   }
 
   return (

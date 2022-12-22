@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Button from '../components/common/button'
 import {useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
-
-import Button from '../components/common/button'
 import {useRooms} from '../hooks/useRooms'
 import {getCurrentUserData} from '../store/user'
 

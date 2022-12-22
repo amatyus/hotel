@@ -1,16 +1,16 @@
 import React, {useState, useEffect, useRef} from 'react'
 import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import '../../../css/dataForm.css'
 import Dropdown from './dropdown'
 import Button from '../common/button'
-import GroupField from '../common/form/groupField'
 import RateField from '../common/form/rateField'
 import PropTypes from 'prop-types'
 import SelectField from '../common/form/selectField'
 import {getCategory} from '../../store/category'
 import {useSelector} from 'react-redux'
 import FormField from '../../components/common/form/formField'
+
+import 'react-datepicker/dist/react-datepicker.css'
+import '../../../css/dataForm.css'
 
 const FilterFullRooms = ({initFormData, onSubmit}) => {
   const [formData, setFormData] = useState({
@@ -27,7 +27,6 @@ const FilterFullRooms = ({initFormData, onSubmit}) => {
   }
 
   const handleFormFieldChange = (value, name) => {
-    console.log(value, name)
     setFormData((prevState) => ({...prevState, [name]: value}))
   }
 
@@ -45,7 +44,6 @@ const FilterFullRooms = ({initFormData, onSubmit}) => {
     e.preventDefault()
 
     onSubmit(formData)
-    console.log(formData)
   }
 
   const categories = useSelector(getCategory())
