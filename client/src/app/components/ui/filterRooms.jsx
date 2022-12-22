@@ -1,10 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState} from 'react'
 import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import '../../../css/dataForm.css'
 import Dropdown from './dropdown'
 import Button from '../common/button'
 import {useHistory} from 'react-router-dom'
+
+import 'react-datepicker/dist/react-datepicker.css'
+import '../../../css/dataForm.css'
 
 const oneDay = 86000000
 
@@ -14,11 +15,11 @@ const FilterRooms = () => {
   const [formData, setFormData] = useState({
     start: new Date(Date.now()),
     end: new Date(Date.now() + oneDay),
-    adult: 2,
+    adults: 2,
     children: 0
   })
 
-  const {start, end, adult, children} = formData
+  const {start, end, adults, children} = formData
 
   const handleDateChange = (dates) => {
     const [start, end] = dates
@@ -52,7 +53,7 @@ const FilterRooms = () => {
     const endDate = end.setHours(23, 59, 59, 999)
 
     history.push(
-      `/rooms?start=${startDate}&end=${endDate}&adult=${adult}&children=${children}`
+      `/rooms?start=${startDate}&end=${endDate}&adults=${adults}&children=${children}`
     )
   }
 
@@ -77,7 +78,7 @@ const FilterRooms = () => {
         </div>
         <div className="col m-0 p-0 ">
           <Dropdown
-            adult={adult}
+            adults={adults}
             childrens={children}
             handleInc={handleIncrement}
             handleDec={handleDecrement}

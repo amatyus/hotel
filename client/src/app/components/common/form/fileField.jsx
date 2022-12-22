@@ -12,17 +12,19 @@ const FileField = ({label, name, value, onChange, error}) => {
         {label}
       </label>
 
-      <input
-        className="form-control"
-        type="file"
-        id="formFileMultiple"
-        accept="image/png, image.jpg"
-        multiple
-        value={value}
-        onChange={handleChange}
-        name={name}
-      ></input>
-      {error && <div className="invalid-feedback ">{error}</div>}
+      <div className="input-group has-validation">
+        <input
+          className="form-control"
+          type="file"
+          id="formFileMultiple"
+          accept="image/png, image/jpg"
+          multiple
+          value={value}
+          onChange={handleChange}
+          name={name}
+        ></input>
+        {error && <div className="invalid-feedback ">{error}</div>}
+      </div>
     </div>
   )
 }
@@ -31,7 +33,7 @@ FileField.propTypes = {
   label: PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string,
-  value: PropTypes.array,
+  value: PropTypes.string,
   onChange: PropTypes.func,
   error: PropTypes.string
 }

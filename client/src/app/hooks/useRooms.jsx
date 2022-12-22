@@ -14,7 +14,7 @@ export const RoomsProvider = ({children}) => {
   const [error, setError] = useState(null)
   const [isLoading, setLoading] = useState(false)
 
-  const getRooms = async (queryParams) => {
+  const fetchRooms = async (queryParams) => {
     try {
       setLoading(true)
       const {content} = await roomService.fetchAll(queryParams)
@@ -34,11 +34,9 @@ export const RoomsProvider = ({children}) => {
     setLoading(false)
   }
 
-  const getRoom = (roomId) => {
-    if (!isLoading) {
-      return rooms.find((r) => r._id === roomId)
-    }
-    // return <Loader />
+  const fetchRoom = async (roomId) => {
+    const {content} = await roomService.get(roomId)
+    return content
   }
 
   const updateRoomData = async (id, data) => {
@@ -61,7 +59,6 @@ export const RoomsProvider = ({children}) => {
   async function createRoom(data) {
     try {
       const {content} = await roomService.create(data)
-      console.log(content)
       setRooms((prevState) => [...prevState, content])
     } catch (error) {
       errorCatcher(error)
@@ -89,8 +86,8 @@ export const RoomsProvider = ({children}) => {
     <RoomsContext.Provider
       value={{
         rooms,
-        getRoom,
-        getRooms,
+        fetchRoom,
+        fetchRooms,
         updateRoomData,
         removeRoom,
         createRoom,

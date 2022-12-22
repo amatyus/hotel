@@ -17,8 +17,10 @@ router
   .get(auth, async (req, res) => {
     try {
       const {orderBy, equalTo} = req.query
-      const list = await Booking.find({[orderBy]: equalTo})
-      res.send(list)
+      const bookings = await Booking.find({[orderBy]: equalTo}).populate(
+        'roomId'
+      )
+      res.send(bookings)
     } catch (e) {
       res.status(500).json({
         message: 'На сервере произошла ошибка. Попробуйте позже'
@@ -52,13 +54,29 @@ router
 
 router.route('/dates').get(auth, async (req, res) => {
   try {
-    const {arrivalDate} = req.query
+    const {arrivalDate, roomId} = req.query
     const startDate = new Date(Number(arrivalDate))
-    const list = await Booking.find({
-      arrivalDate: {
-        $gte: startDate
-      }
-    }).select({arrivalDate: 1, departureDate: 2, _id: 0})
+    const params = roomId
+      ? {
+          $and: [
+            {roomId: roomId},
+            {
+              arrivalDate: {
+                $gte: startDate
+              }
+            }
+          ]
+        }
+      : {
+          arrivalDate: {
+            $gte: startDate
+          }
+        }
+    const list = await Booking.find(params).select({
+      arrivalDate: 1,
+      departureDate: 2,
+      _id: 0
+    })
     res.send(list)
   } catch (e) {
     res.status(500).json({

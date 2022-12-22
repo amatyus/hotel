@@ -21,8 +21,7 @@ const UserPage = ({userId}) => {
   const booking = useSelector(getBookings())
   const isLoading = useSelector(getBookingsLoadingStatus())
   const dispatch = useDispatch()
-  const {getRoom} = useRooms()
-  //   console.log(getRoom('639ee23ece4d4a34006f0e94'))
+
   const transformData = (data) => {
     if (data) {
       const result = data.map((d) => ({
@@ -30,7 +29,6 @@ const UserPage = ({userId}) => {
         arrivalDate: format(new Date(d.arrivalDate), 'dd.MM.yyyy'),
         departureDate: format(new Date(d.departureDate), 'dd.MM.yyyy'),
         totalPrice: `${d.totalPrice}$`
-        // roomId: getRoom(d.roomId)
       }))
       return result
     }
@@ -46,10 +44,9 @@ const UserPage = ({userId}) => {
   // брони пользователя
   useEffect(() => {
     dispatch(loadBookingList(userId))
-  }, [userId])
+  }, [])
 
   const handleRemoveComment = (id) => {
-    console.log(id)
     dispatch(removeBooking(id))
   }
 
@@ -58,11 +55,11 @@ const UserPage = ({userId}) => {
       <>
         <div className="container mt-5">
           <div className="row gutters-sm">
-            <div className="col-md-4 mb-3">
+            <div className="col-md-4 mb-3 px-5">
               <UserCard user={user} />
             </div>
-            <div className="col">
-              <h1>Забронированные номера</h1>
+            <div className="col px-5 mt-4">
+              <h1>Забронированные номера:</h1>
               {!isLoading ? (
                 <Table
                   onRemove={handleRemoveComment}
@@ -74,6 +71,13 @@ const UserPage = ({userId}) => {
             </div>
           </div>
         </div>
+        {/* <div>
+          <img
+            src={require(`../../../img/userPage.jpg`)}
+            alt="..."
+            className="w-50"
+          />
+        </div> */}
       </>
     )
   } else {

@@ -12,11 +12,6 @@
 }
 
 .menu-counter li {
-  /* display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 0 10px 5px 10px;
-  gap: 10px; */
-
   display: flex;
   margin: 0 10px 5px 10px;
   gap: 10px;
@@ -27,4 +22,10 @@
   display: flex;
   justify-content: space-between;
   gap: 5px;
+}
+
+.optionCounterButton {
+  border-radius: 3px;
+  border: 1px solid;
+  width: 20px;
 }

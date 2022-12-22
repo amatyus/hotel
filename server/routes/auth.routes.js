@@ -41,8 +41,6 @@ router.post('/signUp', [
         password: hashedPassword
       })
 
-      console.log(newUser)
-
       const tokens = tokenService.generate({_id: newUser._id})
       await tokenService.save(newUser._id, tokens.refreshToken)
 
@@ -123,7 +121,7 @@ router.post('/token', async (req, res) => {
       return res.status(401).json({message: 'Unauthorized'})
     }
 
-    const tokens = await tokenService.generate({
+    const tokens = tokenService.generate({
       _id: data._id
     })
     await tokenService.save(data._id, tokens.refreshToken)

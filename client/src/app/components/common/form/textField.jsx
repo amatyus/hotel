@@ -8,8 +8,7 @@ const TextField = ({
   value,
   onChange,
   error,
-  placeholder,
-  onBlur
+  placeholder
 }) => {
   const [showPassword, setShowPassword] = useState(false)
 
@@ -17,12 +16,12 @@ const TextField = ({
     onChange({name: target.name, value: target.value})
   }
   const getInputClasses = () => {
-    return 'form-control' + (error && booleanValue ? ' is-invalid' : '')
+    return 'form-control' + (error ? ' is-invalid' : '')
   }
   const toggleShowPassword = () => {
     setShowPassword((prevState) => !prevState)
   }
-  const booleanValue = Boolean(value)
+
   return (
     <div className="mb-4">
       <label htmlFor={name}>{label}</label>
@@ -45,9 +44,7 @@ const TextField = ({
             <i className={'bi bi-eye' + (showPassword ? '-slash' : '')}></i>
           </button>
         )}
-        {error && booleanValue && (
-          <div className="invalid-feedback">{error}</div>
-        )}
+        {error && <div className="invalid-feedback">{error}</div>}
       </div>
     </div>
   )

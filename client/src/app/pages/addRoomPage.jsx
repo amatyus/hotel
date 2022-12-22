@@ -4,7 +4,6 @@ import TextField from '../components/common/form/textField'
 import TextAreaField from '../components/common/form/textAreaField'
 import SelectField from '../components/common/form/selectField'
 import Button from '../components/common/button'
-import Loader from '../components/common/form/loader'
 import BackButton from '../components/common/backButton'
 import FileField from '../components/common/form/fileField'
 import {validator} from '../utils/validateRules'
@@ -15,9 +14,17 @@ import {getCategory} from '../store/category'
 import '../../css/editRoomsPage.css'
 
 const AddRoomsPage = ({onSubmit}) => {
-  const [data, setData] = useState({})
+  const [data, setData] = useState({
+    title: '',
+    description: '',
+    price: '',
+    maxPeople: '',
+    image: '',
+    category: ''
+  })
   const category = useSelector(getCategory())
   const [errors, setErrors] = useState({})
+  const [isSubmit, setIsSubmit] = useState(false)
   const history = useHistory()
 
   const categoryList = category?.map((с) => ({
@@ -43,8 +50,11 @@ const AddRoomsPage = ({onSubmit}) => {
       }
     },
     price: {
-      message: 'Минимальная цена не должна быть меньше одного символа',
-      value: 1
+      isRequired: {
+        message: 'Цена обязательно должен быть заполнен'
+      }
+      //   message: 'Минимальная цена не должна быть меньше одного символа',
+      //   value: 1
     },
     category: {
       isRequired: {
@@ -52,17 +62,21 @@ const AddRoomsPage = ({onSubmit}) => {
       }
     },
     maxPeople: {
-      message: 'Минимальное количество людей не должно быть меньше 1',
-      value: 1
+      isRequired: {
+        message: 'Количество людей обязательно для заполнения'
+      }
+      //   message: 'Минимальное количество людей не должно быть меньше 1',
+      //   value: 1
     }
   }
 
   useEffect(() => {
-    validate()
+    isSubmit && validate()
   }, [data])
 
   const validate = () => {
     const errors = validator(data, validatorConfig)
+    console.log(errors)
     setErrors(errors)
     return Object.keys(errors).length === 0
   }
@@ -76,11 +90,12 @@ const AddRoomsPage = ({onSubmit}) => {
   const handeleSubmit = async (e) => {
     e.preventDefault()
     const isValid = validate()
-    if (!isValid) return
-    onSubmit(data)
-    console.log(data)
-    clearForm()
-    history.push(`/rooms`)
+    setIsSubmit(true)
+    // if (!isValid) return
+    // onSubmit(data)
+    // console.log(data)
+    // clearForm()
+    // history.push(`/rooms`)
   }
 
   return (
@@ -91,46 +106,46 @@ const AddRoomsPage = ({onSubmit}) => {
         <div className="form-body w-50">
           <form onSubmit={handeleSubmit}>
             <TextField
-              label="Title"
+              label="Название"
               name="title"
               onChange={handleChange}
               value={data.title || ''}
               error={errors.title}
-              placeholder="Title Room"
+              placeholder="Введите название номера"
             />
             <TextAreaField
-              label="Description"
+              label="Описание"
               name="description"
               onChange={handleChange}
               value={data.description || ''}
               error={errors.description}
-              placeholder="Description Room"
+              placeholder="Введите описание номера"
             />
             <TextField
-              label="Price"
+              label="Цена"
               name="price"
               onChange={handleChange}
               value={data.price || ''}
               error={errors.price}
-              placeholder="Price Room"
+              placeholder="Укажите цену номера за сутки"
             />
             <TextField
-              label="Max People"
+              label="Количество гостей"
               name="maxPeople"
               onChange={handleChange}
               value={data.maxPeople || ''}
               error={errors.maxPeople}
-              placeholder="Max People"
+              placeholder="Укажите максимальное количество гостей для данного номера"
             />
             <FileField
-              label="Image"
+              label="Фото"
               name="image"
               onChange={handleChange}
               error={errors.image}
-              value={data.image}
+              value={data.image || ''}
             />
             <SelectField
-              label="Category"
+              label="Категория"
               name="category"
               defaultOption="Выберите категорию..."
               options={categoryList}

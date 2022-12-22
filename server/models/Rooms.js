@@ -7,7 +7,7 @@ const schema = new Schema(
     price: {type: Number, required: true},
     image: [{type: String, required: true}],
     category: {type: Schema.Types.ObjectId, ref: 'Category'},
-    bookings: [{type: Schema.Types.ObjectId, ref: 'Booking'}],
+    // bookings: [{type: Schema.Types.ObjectId, ref: 'Booking'}],
     rating: Number,
     maxPeople: Number
   },

@@ -1,10 +1,10 @@
 import React, {useState, useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
-
-import '../../../css/dataForm.css'
 import DropdownField from '../common/form/dropdownField'
 
-const Dropdown = ({adult, childrens, handleInc, handleDec, max}) => {
+import '../../../css/dataForm.css'
+
+const Dropdown = ({adults, childrens, handleInc, handleDec, max}) => {
   const [isOpen, setOpen] = useState(false)
 
   const dropwodnRef = useRef()
@@ -24,7 +24,7 @@ const Dropdown = ({adult, childrens, handleInc, handleDec, max}) => {
     setOpen((prevState) => !prevState)
   }
 
-  const disabledIncrement = max && max <= adult + childrens
+  const disabledIncrement = max && max <= adults + childrens
 
   return (
     <>
@@ -34,7 +34,7 @@ const Dropdown = ({adult, childrens, handleInc, handleDec, max}) => {
           className="count-adult-input"
           type="button"
         >
-          {`${adult} Взрослых - ${childrens} Детей`}
+          {`${adults} Взрослых - ${childrens} Детей`}
         </button>
 
         <ul className={'menu-counter dropdown-menu ' + (isOpen ? ' show' : '')}>
@@ -43,20 +43,20 @@ const Dropdown = ({adult, childrens, handleInc, handleDec, max}) => {
             <DropdownField
               onChange={handleDec}
               className="optionCounterButton"
-              value={adult}
-              amount={adult <= 1}
-              name="adult"
+              value={adults}
+              disabled={adults <= 1}
+              name="adults"
               type="button"
               text="-"
             />
 
-            <span className="optionCounterNumber">{adult}</span>
+            <span className="optionCounterNumber">{adults}</span>
 
             <DropdownField
               onChange={handleInc}
               className="optionCounterButton"
-              value={adult}
-              name="adult"
+              value={adults}
+              name="adults"
               type="button"
               text="+"
               disabled={disabledIncrement}
@@ -68,7 +68,7 @@ const Dropdown = ({adult, childrens, handleInc, handleDec, max}) => {
               onChange={handleDec}
               className="optionCounterButton"
               value={childrens}
-              amount={childrens <= 0}
+              disabled={childrens <= 0}
               name="children"
               type="button"
               text="-"
@@ -93,7 +93,7 @@ const Dropdown = ({adult, childrens, handleInc, handleDec, max}) => {
 }
 
 Dropdown.propTypes = {
-  adult: PropTypes.number.isRequired,
+  adults: PropTypes.number.isRequired,
   childrens: PropTypes.number.isRequired,
   handleInc: PropTypes.func,
   handleDec: PropTypes.func,

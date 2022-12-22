@@ -5,6 +5,7 @@ const {generateRoomData} = require('../utils/helper')
 const router = express.Router({mergeParams: true})
 const User = require('../models/User')
 const Booking = require('../models/Booking')
+const mongoose = require('mongoose')
 
 router.patch('/:roomId', auth, async (req, res) => {
   try {
@@ -26,23 +27,24 @@ router.patch('/:roomId', auth, async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-  const {limit, page, adult, children, rate, start, end} = req.query
-
+  const {limit, page, adults, children, rate, start, end, category} = req.query
+  console.log(category)
   try {
     const rooms = await Rooms.aggregate([
       {
         $lookup: {
           from: Booking.collection.name,
-          localField: '_id',
-          foreignField: 'roomId',
+          localField: 'roomId',
+          foreignField: '_id',
           as: 'booking'
         }
       },
       {
         $match: {
           maxPeople: {
-            $gte: Number(adult) + Number(children)
+            $gte: Number(adults) + Number(children)
           },
+          ...(category && {category: {$eq: mongoose.Types.ObjectId(category)}}),
           booking: {
             $not: {
               $elemMatch: {
@@ -104,6 +106,18 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/:roomId', async (req, res) => {
+  const {roomId} = req.params
+  try {
+    const room = await Rooms.findById(roomId)
+    res.send(room)
+  } catch (error) {
+    res.status(500).json({
+      message: 'На сервере произошла ошибка. Попробуйте позже'
+    })
+  }
+})
+
 router.post('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user._id)
@@ -113,7 +127,6 @@ router.post('/', auth, async (req, res) => {
         ...generateRoomData(),
         ...req.body
       })
-      console.log(newRoom)
       return res.status(200).send(newRoom)
     } else {
       res.status(401).json({message: 'User is not admin'})

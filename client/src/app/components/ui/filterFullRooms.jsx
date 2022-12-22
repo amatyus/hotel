@@ -7,12 +7,16 @@ import Button from '../common/button'
 import GroupField from '../common/form/groupField'
 import RateField from '../common/form/rateField'
 import PropTypes from 'prop-types'
+import SelectField from '../common/form/selectField'
+import {getCategory} from '../../store/category'
+import {useSelector} from 'react-redux'
+import FormField from '../../components/common/form/formField'
 
 const FilterFullRooms = ({initFormData, onSubmit}) => {
   const [formData, setFormData] = useState({
     ...initFormData
   })
-  const {start, end, adult, children, category, rate} = formData
+  const {start, end, adults, children, category, rate} = formData
   const handleDateChange = (dates) => {
     const [start, end] = dates
     setFormData((prev) => ({
@@ -23,6 +27,7 @@ const FilterFullRooms = ({initFormData, onSubmit}) => {
   }
 
   const handleFormFieldChange = (value, name) => {
+    console.log(value, name)
     setFormData((prevState) => ({...prevState, [name]: value}))
   }
 
@@ -40,27 +45,44 @@ const FilterFullRooms = ({initFormData, onSubmit}) => {
     e.preventDefault()
 
     onSubmit(formData)
+    console.log(formData)
   }
+
+  const categories = useSelector(getCategory())
+
+  const categoryList = [
+    ...(categories
+      ? categories.map((с) => ({
+          label: с.name,
+          value: с._id
+        }))
+      : []),
+    {label: 'Показать все', value: ''}
+  ]
 
   return (
     <>
       <form
-        className="row g-3 bg-light mt-1 px-4 py-2 rounded d-flex align-items-center"
+        className="row g-3 bg-light mt-4 m-5 p-2 rounded d-flex align-items-center justify-content-between"
         onSubmit={handleSubmit}
       >
-        <div className="col m-0 p-0">
-          <GroupField
+        <FormField>
+          <SelectField
+            name="category"
+            defaultOption="Выберите категорию..."
+            options={categoryList}
+            onChange={({value, name}) => handleFormFieldChange(value, name)}
             value={category}
-            onChange={(value) => handleFormFieldChange(value, 'category')}
+            placeholder="Category Room"
           />
-        </div>
-        <div className="col m-0 p-0">
+        </FormField>
+        <FormField>
           <RateField
             value={rate}
             onChange={(value) => handleFormFieldChange(value, 'rate')}
           />
-        </div>
-        <div className="col m-0 p-0">
+        </FormField>
+        <FormField>
           <DatePicker
             selectsRange
             dateFormat="dd.MM.yyyy"
@@ -72,19 +94,19 @@ const FilterFullRooms = ({initFormData, onSubmit}) => {
             placeholderText={`${start} - ${end} `}
             className="date-picker-input "
           />
-        </div>
-        <div className="col m-0 p-0 ">
+        </FormField>
+        <FormField>
           <Dropdown
-            adult={adult}
+            adults={adults}
             childrens={children}
             handleInc={handleIncrement}
             handleDec={handleDecrement}
           />
-        </div>
+        </FormField>
 
-        <div className="col m-0 p-0 d-flex justify-content-end submit">
+        <FormField>
           <Button text="Поиск" type="submit" />
-        </div>
+        </FormField>
       </form>
     </>
   )

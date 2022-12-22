@@ -16,14 +16,14 @@ import queryString from 'query-string'
 const oneDay = 86000000
 
 const getInitForm = (query) => {
-  const {start, end, adult, children} = query
+  const {start, end, adults, children, category} = query
 
   return {
     start: start ? new Date(Number(query.start)) : new Date(Date.now()),
     end: end ? new Date(Number(query.end)) : new Date(Date.now() + oneDay),
-    adult: adult ? Number(query.adult) : 2,
+    adults: adults ? Number(query.adults) : 2,
     children: children ? Number(query.children) : 0,
-    category: null,
+    category: category || '',
     rate: 'asc'
   }
 }
@@ -31,7 +31,7 @@ const getInitForm = (query) => {
 const pageSize = 2
 
 const RoomsListPage = () => {
-  const {rooms, getRooms, isLoading, count} = useRooms()
+  const {rooms, fetchRooms, isLoading, count} = useRooms()
   const {search} = useLocation()
   const query = queryString.parse(search)
   const initFormData = getInitForm(query)
@@ -39,32 +39,33 @@ const RoomsListPage = () => {
   const [currentFilters, setCurrentFilters] = useState(initFormData)
   const [currentPage, setCurrentPage] = useState(1)
 
-  const fetchRoomsByFilter = () => {
+  const fetchRoomsByFilter = (currentFilters, currentPage) => {
     const queryParams = {
       ...currentFilters,
+      category: currentFilters.category === '' ? null : currentFilters.category,
       start: currentFilters.start.setHours(0, 0, 0, 0),
       end: currentFilters.end.setHours(23, 59, 59, 999),
       page: currentPage,
       limit: pageSize
     }
 
-    getRooms(queryParams)
+    fetchRooms(queryParams)
   }
 
   useEffect(() => {
-    fetchRoomsByFilter()
+    fetchRoomsByFilter(currentFilters, 1)
   }, [])
 
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex)
-    fetchRoomsByFilter()
+    fetchRoomsByFilter(currentFilters, pageIndex)
   }
 
   const onSubmit = (filters) => {
     setCurrentFilters(filters)
     setCurrentPage(1)
 
-    fetchRoomsByFilter()
+    fetchRoomsByFilter(filters, 1)
   }
 
   return (

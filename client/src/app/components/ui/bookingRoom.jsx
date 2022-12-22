@@ -83,7 +83,7 @@ const BookingRoom = ({maxPeople, disabledDates, onSubmit}) => {
         </div>
         <div className="col m-0 p-0 ">
           <Dropdown
-            adult={adults}
+            adults={adults}
             childrens={children}
             handleInc={handleIncrement}
             handleDec={handleDecrement}

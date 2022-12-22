@@ -17,10 +17,10 @@ import {getCurrentUserData} from '../store/user'
 
 const EditRoomsPage = ({roomId}) => {
   const [isLoading, setLoading] = useState(true)
-  const {getRoom, updateRoomData, isLoading: roomLoading} = useRooms()
+  const {fetchRoom, updateRoomData, isLoading: roomLoading} = useRooms()
   const category = useSelector(getCategory())
   const categoryLoading = useSelector(getCategoryLoadingStatus())
-  const currentRoom = getRoom(roomId)
+  const currentRoom = fetchRoom(roomId)
   const [errors, setErrors] = useState({})
   const currentUser = useSelector(getCurrentUserData())
   const history = useHistory()

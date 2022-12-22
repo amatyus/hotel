@@ -1,12 +1,12 @@
 import React from 'react'
-import '../../css/base.css'
-import 'react-date-range/dist/styles.css' // main css file
-import 'react-date-range/dist/theme/default.css' // theme css file
 import FilterRooms from '../components/ui/filterRooms'
 import HomeCard from '../components/ui/homeCard'
 import TitleInfo from '../components/titleInfo'
 import Footer from '../components/footer'
 
+import '../../css/base.css'
+import 'react-date-range/dist/styles.css' // main css file
+import 'react-date-range/dist/theme/default.css' // theme css file
 const Main = () => {
   return (
     <>

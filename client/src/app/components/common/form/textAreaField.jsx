@@ -6,10 +6,8 @@ const TextAreaField = ({label, name, value, onChange, error, placeholder}) => {
     onChange({name: target.name, value: target.value})
   }
   const getInputClasses = () => {
-    return 'form-control' + (error && booleanValue ? ' is-invalid' : '')
+    return 'form-control' + (error ? ' is-invalid' : '')
   }
-
-  const booleanValue = Boolean(value)
 
   return (
     <div className="mb-4">

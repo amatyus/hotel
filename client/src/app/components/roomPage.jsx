@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import Loader from './common/form/loader'
-import {useHistory} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 import Button from './common/button'
 import Carousel from 'react-multi-carousel'
 import '../../css/roomPage.css'
@@ -14,16 +14,35 @@ import {getCategoryById, getCategoryLoadingStatus} from '../store/category'
 import {getCurrentUserData} from '../store/user'
 import bookingService from '../services/booking.service'
 
+const getDaysByPeriods = (periods) => {
+  return periods.reduce((days, period) => {
+    const daysPeriod = []
+    const {arrivalDate, departureDate} = period
+    const start = new Date(arrivalDate)
+    const end = new Date(departureDate)
+
+    let date = start
+    while (date <= end) {
+      daysPeriod.push(date)
+      date = new Date(date.getTime() + 24 * 60 * 60 * 1000)
+    }
+
+    return [...days, ...daysPeriod]
+  }, [])
+}
+
 const RoomPage = ({roomId}) => {
-  const {getRoom} = useRooms()
-  const room = getRoom(roomId)
+  const {fetchRoom} = useRooms()
+  const [room, setRoom] = useState()
   const history = useHistory()
-  const category = useSelector(getCategoryById(room.category))
+  const category = useSelector(getCategoryById(room?.category))
   const categoryLoading = useSelector(getCategoryLoadingStatus())
   const currentUser = useSelector(getCurrentUserData())
   const [disabledDates, setDisabledDates] = useState([])
-  console.log(roomId)
-  console.log(room)
+
+  useEffect(() => {
+    fetchRoom(roomId).then((roomData) => setRoom(roomData))
+  }, [roomId])
 
   const responsive = {
     desktop: {
@@ -49,29 +68,17 @@ const RoomPage = ({roomId}) => {
   }
 
   useEffect(() => {
-    bookingService
-      .disabledDates({
-        arrivalDate: new Date().getTime()
-      })
-      .then(({content}) => {
-        const daysArray = content.reduce((days, period) => {
-          const daysPeriod = []
-          const {arrivalDate, departureDate} = period
-          const start = new Date(arrivalDate)
-          const end = new Date(departureDate)
-
-          let date = start
-          while (date <= end) {
-            daysPeriod.push(date)
-            date = new Date(date.getTime() + 24 * 60 * 60 * 1000)
-          }
-
-          return [...days, ...daysPeriod]
-        }, [])
-
-        setDisabledDates(daysArray)
-      })
-  }, [])
+    roomId &&
+      bookingService
+        .disabledDates({
+          arrivalDate: new Date().getTime(),
+          roomId
+        })
+        .then(({content}) => {
+          const daysArray = getDaysByPeriods(content)
+          setDisabledDates(daysArray)
+        })
+  }, [roomId])
 
   if (room && !categoryLoading && room.image) {
     return (
@@ -113,18 +120,11 @@ const RoomPage = ({roomId}) => {
               {currentUser && currentUser.isAdmin && (
                 <Button
                   type="button"
-                  className=" mx-4"
+                  className="  mt-5"
                   text="Редактировать"
                   onClick={handleEdit}
                 />
               )}
-              {/* {!userLoading && currentUser && currentUser.isAdmin && (
-                <Button
-                  type="button"
-                  text="Удалить номер"
-                  onClick={() => handleRemoveComment(roomId)}
-                />
-              )} */}
             </div>
           </div>
         </div>

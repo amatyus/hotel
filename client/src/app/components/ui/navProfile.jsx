@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
-import '../../../css/navProfile.css'
 import {useSelector} from 'react-redux'
 import {getCurrentUserData} from '../../store/user'
-import Loader from '../common/form/loader'
+
+import '../../../css/navProfile.css'
 
 function NavProfile() {
   const currentUser = useSelector(getCurrentUserData())
@@ -13,7 +13,7 @@ function NavProfile() {
     setOpen((prevState) => !prevState)
   }
 
-  if (!currentUser) return <Loader />
+  if (!currentUser) return 'Loading...'
 
   return (
     <div className="dropdown" onClick={toggleMenu}>
@@ -22,10 +22,10 @@ function NavProfile() {
       </div>
       <div className={'w-100 dropdown-menu' + (isOpen ? ' show' : '')}>
         <Link to={`/user/${currentUser._id}`} className="dropdown-item">
-          Profile
+          Моя страница
         </Link>
         <Link to="/logout" className="dropdown-item">
-          Log Out
+          Выход
         </Link>
       </div>
     </div>

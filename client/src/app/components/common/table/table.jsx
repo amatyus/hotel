@@ -1,17 +1,13 @@
 import React from 'react'
-import {useSelector} from 'react-redux'
-import {getBookings} from '../../../store/booking'
 import PropTypes from 'prop-types'
 import TableHeader from './tableHeader'
 import TableBody from './tableBody'
-import RoomsList from '../../ui/roomsList'
 
 const Table = ({data, onRemove}) => {
   const columns = {
     roomId: {
-      path: 'roomId',
+      path: 'roomId.title',
       name: 'Комната'
-      //   component: (room) => <RoomsList rooms={room.roomId} />
     },
     totalPrice: {
       path: 'totalPrice',
@@ -43,30 +39,15 @@ const Table = ({data, onRemove}) => {
   }
   return (
     <>
-      {data.length > 0 && (
+      {data.length > 0 ? (
         <table className="table">
           <TableHeader columns={columns} />
           <TableBody {...{columns, data}} />
-          {/* <tbody>
-            {booking.map((book) => (
-              <tr key={book._id}>
-                <td>{book._id}</td>
-                <td>{`${book.totalPrice}$`}</td>
-                <td>{`${book.arrivalDate}-${book.departureDate}`}</td>
-                <td>{`adults:${book.adults}  children:${book.children}`}</td> */}
-
-          {/* <td>
-                  <button
-                    className="btn btn-sm text-primary d-flex align-items-center"
-                    onClick={() => onRemove(book._id)}
-                  >
-                    <i className="bi bi-x-lg"></i>
-                  </button>
-                </td> */}
-          {/* </tr>
-            ))}
-          </tbody> */}
         </table>
+      ) : (
+        <h3 className="text-dark">
+          Похоже, у вас пока нет забронированных номеров...
+        </h3>
       )}
     </>
   )

@@ -39,15 +39,19 @@ const RoomsPage = ({title, _id: roomId, image, rating}) => {
             {rating}
             <i className="bi bi-star-fill mx-1"></i>
           </h6>
-          <Button type="button" text="Подробнее" onClick={handleOpen} />
-          {currentUser && currentUser.isAdmin && (
-            <Button
-              type="button"
-              text="Удалить номер"
-              className={'mx-3'}
-              onClick={() => handleRemoveComment(roomId)}
-            />
-          )}
+          <div>
+            <Button type="button" text="Подробнее" onClick={handleOpen} />
+          </div>
+          <div>
+            {currentUser && currentUser.isAdmin && (
+              <Button
+                type="button"
+                text="Удалить номер"
+                className={'mt-3 '}
+                onClick={() => handleRemoveComment(roomId)}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

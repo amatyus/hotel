@@ -5,7 +5,7 @@ const schema = new Schema({
   children: Number,
   arrivalDate: Date,
   departureDate: Date,
-  roomId: {type: SchemaTypes.ObjectId, ref: 'Room'},
+  roomId: {type: SchemaTypes.ObjectId, ref: 'Rooms'},
   userId: {type: SchemaTypes.ObjectId, ref: 'User'},
   totalPrice: Number
 })

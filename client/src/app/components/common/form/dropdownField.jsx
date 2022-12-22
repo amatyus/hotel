@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import '../../../../css/dataForm.css'
+
 const DropdownField = ({onChange, value, name, type, text, disabled}) => {
   return (
     <>
       <span className="option-counter-container">
         <button
-          className="optionCounterButton"
+          className="optionCounterButton px-1"
           disabled={disabled}
           onClick={onChange}
           name={name}

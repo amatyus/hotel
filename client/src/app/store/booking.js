@@ -46,7 +46,6 @@ export const allLoadBookingList = () => async (dispatch) => {
   dispatch(bookingRequested())
   try {
     const {content} = await bookingService.fetchAll()
-    console.log(content)
     dispatch(bookingReceved(content))
   } catch (error) {
     dispatch(bookingRequestFiled(error.message))
