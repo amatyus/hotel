@@ -39,3 +39,19 @@
 
   color: #0e1734;
 }
+
+.filters__img {
+  width: 600px;
+  height: 400px;
+  overflow: hidden;
+  margin: 10px;
+}
+
+.filters__img img {
+  width: initial;
+  height: 100%;
+}
+
+.booking {
+  width: 40rem;
+}

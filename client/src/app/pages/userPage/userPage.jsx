@@ -41,8 +41,10 @@ const UserPage = ({userId}) => {
   //     dispatch(allLoadBookingList())
   //   }, [])
 
+  console.log('booking:', booking)
   // брони пользователя
   useEffect(() => {
+    console.log('______________________________')
     dispatch(loadBookingList(userId))
   }, [])
 

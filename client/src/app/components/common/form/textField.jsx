@@ -8,7 +8,8 @@ const TextField = ({
   value,
   onChange,
   error,
-  placeholder
+  placeholder,
+  note
 }) => {
   const [showPassword, setShowPassword] = useState(false)
 
@@ -45,6 +46,7 @@ const TextField = ({
           </button>
         )}
         {error && <div className="invalid-feedback">{error}</div>}
+        {note && <p style={{fontSize: '15px', margin: '10px 0 0 0'}}>{note}</p>}
       </div>
     </div>
   )
@@ -57,6 +59,7 @@ TextField.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
   type: PropTypes.string,
+  note: PropTypes.string,
   placeholder: PropTypes.string,
   error: PropTypes.string,
   emailErr: PropTypes.bool,

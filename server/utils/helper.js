@@ -4,8 +4,8 @@ function getRandomInt(min, max) {
 
 function generateRoomData() {
   return {
-    rating: getRandomInt(1, 5),
-    image: ['cootege.jpg']
+    rating: getRandomInt(3, 5)
+    // image: ['cootege.jpg']
   }
 }
 

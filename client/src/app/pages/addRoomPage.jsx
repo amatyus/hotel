@@ -87,7 +87,12 @@ const AddRoomsPage = ({onSubmit}) => {
     const isValid = validate()
     setIsSubmit(true)
     if (!isValid) return
-    onSubmit(data)
+    const transformedData = {
+      ...data,
+      image: data.image.split(',')
+    }
+    onSubmit(transformedData)
+    console.log(transformedData)
     clearForm()
     history.push(`/rooms`)
   }
@@ -131,12 +136,23 @@ const AddRoomsPage = ({onSubmit}) => {
               error={errors.maxPeople}
               placeholder="Укажите максимальное количество гостей для данного номера"
             />
-            <FileField
+            {/* <FileField
               label="Фото"
               name="image"
               onChange={handleChange}
               error={errors.image}
               value={data.image || ''}
+            /> */}
+            <TextField
+              label="Фото"
+              name="image"
+              onChange={handleChange}
+              error={errors.image}
+              value={data.image || ''}
+              placeholder="Введите названия картинок"
+              note={
+                'Имена должны быть с расширением(например, room.jpg), записываются через запятую. Первая картинка в списке будет главной'
+              }
             />
             <SelectField
               label="Категория"

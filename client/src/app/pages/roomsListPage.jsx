@@ -30,6 +30,7 @@ const RoomsListPage = () => {
   const {search} = useLocation()
   const query = queryString.parse(search)
   const initFormData = getInitForm(query)
+  console.log(rooms)
 
   const [currentFilters, setCurrentFilters] = useState(initFormData)
   const [currentPage, setCurrentPage] = useState(1)

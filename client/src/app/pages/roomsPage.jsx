@@ -25,11 +25,13 @@ const RoomsPage = ({title, _id: roomId, image, rating}) => {
     <div className="col px-5 my-5">
       <div className="card ">
         {image && (
-          <img
-            src={require(`../../img/${image[0]}`)}
-            className="card-img-top"
-            alt="imageRoom"
-          ></img>
+          <div className="filters_img">
+            <img
+              src={require(`../../img/${image[0]}`)}
+              className="card-img-top"
+              alt="imageRoom"
+            ></img>
+          </div>
         )}
 
         <div className="card-body px-0">

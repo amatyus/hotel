@@ -46,3 +46,15 @@ a:hover,
 a:link {
   color: #424f7b;
 } */
+
+.filters_img {
+  width: 500px;
+  height: 650px;
+  overflow: hidden;
+  margin: 10px;
+}
+
+.filters_img img {
+  width: initial;
+  height: 100%;
+}

@@ -1,11 +1,13 @@
 const express = require('express')
 const Rooms = require('../models/Rooms')
 const auth = require('../middleware/auth.middleware')
-const {generateRoomData} = require('../utils/helper')
+// const path = require('path')
+// const multer = require('multer')
 const router = express.Router({mergeParams: true})
 const User = require('../models/User')
 const Booking = require('../models/Booking')
 const mongoose = require('mongoose')
+const {generateRoomData} = require('../utils/helper')
 
 router.patch('/:roomId', auth, async (req, res) => {
   try {
@@ -151,5 +153,27 @@ router.delete('/:roomId', auth, async (req, res) => {
     })
   }
 })
+
+/////////////
+
+// const storege = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'img')
+//   },
+//   filename: (req, file, cb) => {
+//     console.log(file)
+//     cb(null, Date.now() + path.extname(file.originalname))
+//   }
+// })
+
+// const upload = multer({storage: storege})
+
+// router.get('/upload', (req, res) => {
+//   res.send(' Upload')
+// })
+
+// router.post('/upload', upload.single('image'), (req, res) => {
+//   res.send('Image Upload')
+// })
 
 module.exports = router

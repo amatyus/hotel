@@ -89,12 +89,12 @@ const RoomPage = ({roomId}) => {
             <BackButton />
           </div>
 
-          <div className="card p-5 ">
+          <div className="card p-5">
             <Carousel responsive={responsive}>
               {room &&
                 room.image &&
                 room.image.map((img) => (
-                  <div key={room}>
+                  <div key={room} className="filters__img">
                     <img
                       key={room.id}
                       src={require(`../../img/${img}`)}
@@ -111,13 +111,13 @@ const RoomPage = ({roomId}) => {
               <p className="card-text-price">Price: {room.price}$</p>
               <p className="card-text-category">Category: {category.name} </p>
               <p className="card-text-rating">Rating: {room.rating}</p>
-
-              <BookingRoom
-                maxPeople={room.maxPeople}
-                onSubmit={onBooking}
-                disabledDates={disabledDates}
-              />
-
+              <div className="booking">
+                <BookingRoom
+                  maxPeople={room.maxPeople}
+                  onSubmit={onBooking}
+                  disabledDates={disabledDates}
+                />
+              </div>
               {currentUser && currentUser.isAdmin && (
                 <Button
                   type="button"
